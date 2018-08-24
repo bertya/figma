@@ -67,7 +67,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -183,7 +183,7 @@ var Layout = function Layout(props) {
 
 /***/ }),
 
-/***/ "./pages/file.js":
+/***/ "./pages/page.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -198,7 +198,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_isomorphic_unfetch__ = __webpack_require__("isomorphic-unfetch");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_isomorphic_unfetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_isomorphic_unfetch__);
 
-var _jsxFileName = "/Users/bing/Development/fig/pages/file.js";
+var _jsxFileName = "/Users/bing/Development/fig/pages/page.js";
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } } function _next(value) { step("next", value); } function _throw(err) { step("throw", err); } _next(); }); }; }
 
@@ -224,76 +224,75 @@ var imgStyle = {
   maxWidth: 300
 };
 
-var File =
+var Page =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(File, _React$Component);
+  _inherits(Page, _React$Component);
 
-  function File(props) {
+  function Page(props) {
     var _this;
 
-    _classCallCheck(this, File);
+    _classCallCheck(this, Page);
 
-    _this = _possibleConstructorReturn(this, (File.__proto__ || Object.getPrototypeOf(File)).call(this, props));
+    _this = _possibleConstructorReturn(this, (Page.__proto__ || Object.getPrototypeOf(Page)).call(this, props));
     _this.state = {
-      pages: null,
+      changes: null,
       images: null
     };
     return _this;
   }
 
-  _createClass(File, [{
+  _createClass(Page, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this2 = this;
 
-      var pageData = __WEBPACK_IMPORTED_MODULE_4_isomorphic_unfetch___default()("/api/file/".concat(this.props.id));
+      var pageData = __WEBPACK_IMPORTED_MODULE_4_isomorphic_unfetch___default()("/api/file/".concat(this.props.id, "/").concat(this.props.page));
       pageData.then(function (data) {
         return data.json();
       }).then(function (data) {
-        console.log(data);
-
         _this2.setState({
-          pages: data.pages,
-          images: data.images
+          changes: data.images
         });
       });
     }
   }, {
-    key: "displayFiles",
-    value: function displayFiles() {
-      var _this3 = this;
-
-      return this.state.pages.map(function (page) {
-        console.log(21);
-        console.log(page);
+    key: "displayChanges",
+    value: function displayChanges() {
+      // return this.state.pages.map(page => {
+      //   console.log(21);
+      //   console.log(page);
+      //   return (
+      //     <li key={page.id}><img src={this.state.images[page.id]} style={imgStyle}></img>{page.name}</li>
+      //   );
+      // });
+      for (var key in this.state.changes) {
         return __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement("li", {
-          key: page.id,
+          key: key,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 37
+            lineNumber: 40
           }
         }, __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement("img", {
-          src: _this3.state.images[page.id],
+          src: this.state.changes[key],
           style: imgStyle,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 37
+            lineNumber: 40
           }
-        }), page.name);
-      });
-      y;
+        }));
+      }
     }
   }, {
     key: "render",
     value: function render() {
       console.log(this.state);
 
-      if (this.state.pages == null) {
+      if (this.state.changes == null) {
         return __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement("div", {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 46
+            lineNumber: 49
           }
         }, "Loading");
       }
@@ -301,36 +300,38 @@ function (_React$Component) {
       return __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_layout__["a" /* default */], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 51
+          lineNumber: 54
         }
       }, __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement("ul", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 52
+          lineNumber: 55
         }
-      }, this.displayFiles()));
+      }, this.displayChanges()));
     }
   }]);
 
-  return File;
+  return Page;
 }(__WEBPACK_IMPORTED_MODULE_3_react___default.a.Component);
 
-File.getInitialProps =
+Page.getInitialProps =
 /*#__PURE__*/
 function () {
   var _ref = _asyncToGenerator(
   /*#__PURE__*/
   __WEBPACK_IMPORTED_MODULE_0__babel_runtime_regenerator___default.a.mark(function _callee(context) {
-    var id;
+    var _context$query, id, page;
+
     return __WEBPACK_IMPORTED_MODULE_0__babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            id = context.query.id; // const baseUrl = context.req ? `${context.req.protocol}://${context.req.get('Host')}` : '';
+            _context$query = context.query, id = _context$query.id, page = _context$query.page; // const baseUrl = context.req ? `${context.req.protocol}://${context.req.get('Host')}` : '';
             // console.log(`Fetched show: ${show.name}`);
 
             return _context.abrupt("return", {
-              id: id
+              id: id,
+              page: page
             });
 
           case 2:
@@ -346,14 +347,14 @@ function () {
   };
 }();
 
-/* harmony default export */ __webpack_exports__["default"] = (File);
+/* harmony default export */ __webpack_exports__["default"] = (Page);
 
 /***/ }),
 
-/***/ 4:
+/***/ 3:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__("./pages/file.js");
+module.exports = __webpack_require__("./pages/page.js");
 
 
 /***/ }),
@@ -394,4 +395,4 @@ module.exports = require("react");
 /***/ })
 
 /******/ });
-//# sourceMappingURL=file.js.map
+//# sourceMappingURL=page.js.map
